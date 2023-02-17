@@ -1,0 +1,402 @@
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;;                                                                                                      
+                                                                                            ;;
+                      00003 ;;                                      PRESENTADO POR : JESUS MONSALVE ZERPA                           
+                                                    ;;
+                      00004 ;;                                      C.I: 263737524                                                  
+                                                                            ;;
+                      00005 ;;                                      ESTE PROYECTO EN LENGUJE ASSEMBLER                              
+                                                            ;;
+                      00006 ;;                                      CONSISTE EN HACER ENCENDER LOS LED SEGUN SE VA                  
+                                            ;;
+                      00007 ;;                                      PRESIONANDO LOS BOTONES CORRESPONDIENTES                        
+                                                    ;;
+                      00008 ;;                                                                                                      
+                                                                                            ;;
+                      00009 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00010 
+Warning[205]: Found directive in column 1. (LIST)
+                      00011 LIST P=16F84A
+Warning[205]: Found directive in column 1. (INCLUDE)
+                      00012 INCLUDE <P16F84A.INC>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F84A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2011 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00207         LIST
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3FF1           00013 __CONFIG _CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC
+                      00014 
+                      00015 
+Warning[207]: Found label after column 1. (TIEMPO)
+  0000000C            00016                 TIEMPO   EQU 0X0C
+Warning[207]: Found label after column 1. (TIEMPO2)
+  0000000D            00017                 TIEMPO2  EQU 0X0D
+                      00018 
+0000                  00019                 org 0 
+                      00020 
+                      00021 
+0000   1683           00022                 BSF STATUS,RP0  ; SE INGRESA AL BANCO1 PARA CONFIGURAR PUERTOS
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0001   1485           00023                 BSF TRISA , 1   ; DECLARA EL PUETO RA1 COMO ENTRADA 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0186           00024                 CLRF TRISB              ; DECARA EL PUERTO RB1 COMO SALIDA
+0003   1283           00025                 BCF STATUS ,RP0 ; REGRESA A BANCO 0
+0004   3001           00026                 MOVLW B'00000001'
+                      00027 
+                      00028 
+                      00029 ; INCIAMOS EL PROGRAMA
+                      00030 
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00031 
+                      00032 
+0005   3001           00033                 MOVLW B'000001'
+0006   0086           00034                 MOVWF PORTB
+0007   2060           00035                 CALL RETARDO
+                      00036                 
+0008                  00037 INICIO
+0008   2060           00038                 CALL RETARDO ;HACEMOS UN RETARDO
+0009   2060           00039                 CALL RETARDO; Y DOS RETARDOS YA Q ASI GRANTISAMOS NO ESTAR EN EFECTO REBOTE DEL BOTON 
+000A   280B           00040                 GOTO BOTON; AHORA SI ENTRAMOS EN UN CICLO SIN RETARDOS Q 100% ESTARA PENDIENTE SI ES PRE
+                            CIONADO UN BOTON
+                      00041 
+                      00042 
+                      00043 ;ESPERAMOS BOTON                
+000B                  00044 BOTON   
+000B   1C05           00045                 BTFSS PORTA,0 ;MIRA SI EL PULSADOR 1 EN A0 ESTA EN 1
+000C   2838           00046                 GOTO LED0; SI ESTA EN 0 ENTRA EN LED0
+000D   1C85           00047                 BTFSS PORTA,1 ;MIRA SI EL PULSADOR 2 EN A1 ESTA EN 1
+000E   2810           00048                 GOTO NOLED7 ;SI LO PRECIONAN ESTARA EN 0 Y ENTRA EN ESTE CICLO
+000F   280B           00049                 GOTO BOTON ; VOLVEMOS A CICLO BOTON A ESTAR PENDIENTES
+                      00050 
+                      00051 
+0010                  00052 NOLED7
+0010   1F86           00053                 BTFSS PORTB,7;SI EL LED 7 ESTA ENCENDIDO
+0011   2815           00054                 GOTO NOLED6
+0012   307F           00055                 MOVLW B'01111111';;PONLO EN 0
+0013   0086           00056                 MOVWF PORTB
+0014   2808           00057                 GOTO INICIO
+                      00058 
+                      00059 
+0015                  00060 NOLED6
+0015   1F06           00061                 BTFSS PORTB,6;SI EL LED 6 ESTA ENCENDIDO
+0016   281A           00062                 GOTO NOLED5
+0017   303F           00063                 MOVLW B'00111111';;PONLO EN 0
+0018   0086           00064                 MOVWF PORTB
+0019   2808           00065                 GOTO INICIO
+                      00066 
+001A                  00067 NOLED5
+001A   1E86           00068                 BTFSS PORTB,5;SI EL LED 5 ESTA ENCENDIDO
+001B   281F           00069                 GOTO NOLED4
+001C   301F           00070                 MOVLW B'00011111';PONLO EN 0
+001D   0086           00071                 MOVWF PORTB
+001E   2808           00072                 GOTO INICIO
+                      00073 
+001F                  00074 NOLED4
+001F   1E06           00075                 BTFSS PORTB,4;SI EL LED 4 ESTA ENCENDIDO
+0020   2824           00076                 GOTO NOLED3
+0021   300F           00077                 MOVLW B'00001111';PONLO EN 0
+0022   0086           00078                 MOVWF PORTB
+0023   2808           00079                 GOTO INICIO
+                      00080 
+0024                  00081 NOLED3
+0024   1D86           00082                 BTFSS PORTB,3;SI EL LED 3 ESTA ENCENDIDO
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0025   2829           00083                 GOTO NOLED2
+0026   3007           00084                 MOVLW B'00000111';PONLO EN 0
+0027   0086           00085                 MOVWF PORTB
+0028   2808           00086                 GOTO INICIO
+                      00087 
+0029                  00088 NOLED2
+0029   1D06           00089                 BTFSS PORTB,2;SI EL LED 2 ESTA ENCENDIDO
+002A   282E           00090                 GOTO NOLED1
+002B   3003           00091                 MOVLW B'00000011';PONLO EN 0
+002C   0086           00092                 MOVWF PORTB
+002D   2808           00093                 GOTO INICIO
+                      00094 
+002E                  00095 NOLED1
+002E   1C86           00096                 BTFSS PORTB,1;SI EL LED 1 ESTA ENCENDIDO
+002F   2833           00097                 GOTO NOLED0
+0030   3001           00098                 MOVLW B'00000001';PONLO EN 0
+0031   0086           00099                 MOVWF PORTB
+0032   2808           00100                 GOTO INICIO
+                      00101 
+0033                  00102 NOLED0
+0033   1C06           00103                 BTFSS PORTB,0;SI EL LED 0 ESTA ENCENDIDO
+0034   2808           00104                 GOTO INICIO
+0035   3000           00105                 MOVLW B'00000000';PONLO EN 0
+0036   0086           00106                 MOVWF PORTB
+0037   2808           00107                 GOTO INICIO
+                      00108 
+                      00109 
+                      00110 
+0038                  00111 LED0
+0038   1806           00112                 BTFSC PORTB,0;SI EL LED 0 ESTA APAGADO
+0039   283D           00113                 GOTO LED1
+003A   3001           00114                 MOVLW B'00000001'
+003B   0086           00115                 MOVWF PORTB
+003C   2808           00116                 GOTO INICIO
+                      00117 
+                      00118 
+                      00119 
+003D                  00120 LED1
+003D   1886           00121                 BTFSC PORTB,1;SI EL LED 1 ESTA APAGADO
+003E   2842           00122                 GOTO LED2
+003F   3003           00123                 MOVLW B'00000011'
+0040   0086           00124                 MOVWF PORTB
+0041   2808           00125                 GOTO INICIO
+                      00126 
+0042                  00127 LED2
+0042   1906           00128                 BTFSC PORTB,2;SI EL LED 1 ESTA APAGADO
+0043   2847           00129                 GOTO LED3
+0044   3007           00130                 MOVLW B'00000111'
+0045   0086           00131                 MOVWF PORTB
+0046   2808           00132                 GOTO INICIO
+                      00133 
+0047                  00134 LED3
+0047   1986           00135                 BTFSC PORTB,3;SI EL LED 1 ESTA APAGADO
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0048   284C           00136                 GOTO LED4
+0049   300F           00137                 MOVLW B'00001111'
+004A   0086           00138                 MOVWF PORTB
+004B   2808           00139                 GOTO INICIO
+                      00140 
+004C                  00141 LED4
+004C   1A06           00142                 BTFSC PORTB,4;SI EL LED 1 ESTA APAGADO
+004D   2851           00143                 GOTO LED5
+004E   301F           00144                 MOVLW B'00011111'
+004F   0086           00145                 MOVWF PORTB
+0050   2808           00146                 GOTO INICIO
+                      00147 
+                      00148 
+0051                  00149 LED5
+0051   1A86           00150                 BTFSC PORTB,5;SI EL LED 1 ESTA APAGADO
+0052   2856           00151                 GOTO LED6
+0053   303F           00152                 MOVLW B'00111111'
+0054   0086           00153                 MOVWF PORTB
+0055   2808           00154                 GOTO INICIO
+                      00155 
+                      00156 
+0056                  00157 LED6
+0056   1B06           00158                 BTFSC PORTB,6;SI EL LED 1 ESTA APAGADO
+0057   285B           00159                 GOTO LED7
+0058   307F           00160                 MOVLW B'01111111'
+0059   0086           00161                 MOVWF PORTB
+005A   2808           00162                 GOTO INICIO
+                      00163 
+                      00164 
+005B                  00165 LED7
+005B   1B86           00166                 BTFSC PORTB,7;SI EL LED 1 ESTA APAGADO
+005C   2808           00167                 GOTO INICIO
+005D   30FF           00168                 MOVLW B'11111111'
+005E   0086           00169                 MOVWF PORTB
+005F   2808           00170                 GOTO INICIO
+                      00171 
+                      00172 
+                      00173 
+                      00174 
+0060                  00175 RETARDO
+0060   30FF           00176                 MOVLW D'255' ;CARGA W CON 255
+0061   080C           00177                 MOVFW TIEMPO ; TIEMPO ES IGUAL A 255
+Message[305]: Using default destination of 1 (file).
+0062   0B8C           00178 DEC     DECFSZ TIEMPO; DECREMENTA A TIEMPO
+0063   2865           00179                 GOTO DEC1
+0064   0008           00180                 RETURN 
+                      00181 
+0065   30FF           00182 DEC1    MOVLW D'255' ;CARGA W CON 255
+0066   080D           00183                 MOVFW TIEMPO2 ; TIEMPO ES IGUAL A 255
+Message[305]: Using default destination of 1 (file).
+0067   0B8D           00184 DEC3    DECFSZ TIEMPO2; DECREMENTA A TIEMPO
+0068   2867           00185                 GOTO DEC3
+0069   2862           00186                 GOTO DEC 
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00187                 END
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BOTON                             0000000B
+C                                 00000000
+DC                                00000001
+DEC                               00000062
+DEC1                              00000065
+DEC3                              00000067
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INICIO                            00000008
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LED0                              00000038
+LED1                              0000003D
+LED2                              00000042
+LED3                              00000047
+LED4                              0000004C
+LED5                              00000051
+LED6                              00000056
+LED7                              0000005B
+NOLED0                            00000033
+NOLED1                            0000002E
+NOLED2                            00000029
+NOLED3                            00000024
+NOLED4                            0000001F
+NOLED5                            0000001A
+NOLED6                            00000015
+NOLED7                            00000010
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RETARDO                           00000060
+RP0                               00000005
+RP1                               00000006
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TIEMPO                            0000000C
+TIEMPO2                           0000000D
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+MPASM  5.43                  PROGRAMA LED.ASM   2-4-2023  19:47:47         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------ ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   106
+Program Memory Words Free:   918
+
+
+Errors   :     0
+Warnings :     5 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
+
+

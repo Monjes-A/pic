@@ -1,0 +1,76 @@
+MPLINK 4.41, Linker
+Linker Map File - Created Sat Feb 04 19:47:48 2023
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0000d4
+.config_2007_PROGRAMA LED.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000069      
+                            0x002007    0x002007      
+            107 out of 1094 program addresses used, program memory utilization is 9%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BOTON   0x00000b    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                      DEC   0x000062    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     DEC1   0x000065    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     DEC3   0x000067    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   INICIO   0x000008    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED0   0x000038    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED1   0x00003d    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED2   0x000042    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED3   0x000047    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED4   0x00004c    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED5   0x000051    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED6   0x000056    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED7   0x00005b    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED0   0x000033    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED1   0x00002e    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED2   0x000029    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED3   0x000024    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED4   0x00001f    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED5   0x00001a    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED6   0x000015    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED7   0x000010    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                  RETARDO   0x000060    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000008    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                    BOTON   0x00000b    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED7   0x000010    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED6   0x000015    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED5   0x00001a    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED4   0x00001f    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED3   0x000024    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED2   0x000029    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED1   0x00002e    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                   NOLED0   0x000033    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED0   0x000038    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED1   0x00003d    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED2   0x000042    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED3   0x000047    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED4   0x00004c    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED5   0x000051    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED6   0x000056    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     LED7   0x00005b    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                  RETARDO   0x000060    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                      DEC   0x000062    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     DEC1   0x000065    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+                     DEC3   0x000067    program     static C:\Users\LAPTOP\Documents\ESTUDIOS\universidad\pic\programa led.asm
+
+
